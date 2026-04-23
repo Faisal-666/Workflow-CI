@@ -1,0 +1,17 @@
+name: diabetes-logistic-regression
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      train_csv: {type: string, default: "./diabetes_preprocessing/train.csv"}
+      test_csv: {type: string, default: "./diabetes_preprocessing/test.csv"}
+      max_iter: {type: int, default: 1000}
+      random_state: {type: int, default: 42}
+    command: >
+      python modelling.py
+      --train_csv {train_csv}
+      --test_csv {test_csv}
+      --max_iter {max_iter}
+      --random_state {random_state}
