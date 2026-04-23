@@ -1,4 +1,4 @@
-name: workflow MLflow
+name: CI workflow
 
 on:
   push:
@@ -37,14 +37,8 @@ jobs:
           echo "MLFLOW_TRACKING_URI=https://${{ secrets.DAGSHUB_USERNAME }}:${{ secrets.DAGSHUB_PAT }}@dagshub.com/Faisal-666/diabetes-mlflow.mlflow" >> $GITHUB_ENV
           echo "MLFLOW_TRACKING_USERNAME=${{ secrets.DAGSHUB_USERNAME }}" >> $GITHUB_ENV
           echo "MLFLOW_TRACKING_PASSWORD=${{ secrets.DAGSHUB_PAT }}" >> $GITHUB_ENV
-
-      - name: Debug MLflow env
-        run: |
-          echo "MLFLOW_TRACKING_URI=$MLFLOW_TRACKING_URI"
-          echo "MLFLOW_TRACKING_USERNAME=$MLFLOW_TRACKING_USERNAME"
-          echo "MLFLOW_TRACKING_PASSWORD=$MLFLOW_TRACKING_PASSWORD"
       
-      - name: Run mlflow project with params
+      - name: Run mlflow (Auto log artifact to dagshub/mlflow)
         run: |
           mlflow run MLProject --experiment-name="${{ env.EXPERIMENT_NAME }}" --env-manager=local
 
